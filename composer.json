@@ -1,0 +1,27 @@
+{
+    "name": "dench/yii2-products",
+    "description": "Products module for yii2",
+    "type": "yii2-extension",
+    "keywords": ["yii2","extension","products"],
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Dench",
+            "email": "dench@i.ua"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "*",
+        "dench/yii2-language": "@dev",
+        "dench/yii2-image": "@dev",
+        "dench/yii2-sortable": "@dev",
+        "2amigos/yii2-ckeditor-widget": "~2.0",
+        "voskobovich/yii2-linker-behavior": "^4.0",
+        "kartik-v/yii2-widget-select2": "@dev"
+    },
+    "autoload": {
+        "psr-4": {
+            "dench\\products\\": ""
+        }
+    }
+}
