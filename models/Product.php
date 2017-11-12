@@ -33,6 +33,8 @@ use yii\web\NotFoundHttpException;
  * @property string $keywords
  * @property string $description
  * @property string $text
+ * @property string $text_tips
+ * @property string $text_features
  *
  * @property array $category_ids
  * @property array $option_ids
@@ -92,8 +94,8 @@ class Product extends ActiveRecord
             [['name', 'h1', 'title', 'category_ids'], 'required'],
             [['brand_id', 'position'], 'integer'],
             [['slug', 'name', 'h1', 'title', 'keywords', 'view'], 'string', 'max' => 255],
-            [['description', 'text'], 'string'],
-            [['slug', 'name', 'h1', 'title', 'keywords', 'description', 'text'], 'trim'],
+            [['description', 'text', 'text_tips', 'text_features'], 'string'],
+            [['slug', 'name', 'h1', 'title', 'keywords', 'description', 'text', 'text_tips', 'text_features'], 'trim'],
             [['enabled', 'price_from'], 'boolean'],
             [['enabled'], 'default', 'value' => true],
             [['category_ids', 'option_ids', 'complect_ids', 'status_ids'], 'each', 'rule' => ['integer']],
@@ -120,12 +122,14 @@ class Product extends ActiveRecord
             'keywords' => Yii::t('app', 'Keywords'),
             'description' => Yii::t('app', 'Description'),
             'text' => Yii::t('app', 'Text'),
+            'text_tips' => Yii::t('app', 'Tips for use'),
+            'text_features' => Yii::t('app', 'Features'),
             'price_from' => Yii::t('app', 'from'),
             'view' => Yii::t('app', 'View template'),
             'category_ids' => Yii::t('app', 'Categories'),
             'status_ids' => Yii::t('app', 'Statuses'),
             'complect_ids' => Yii::t('app', 'Complectation'),
-            'option_ids' => Yii::t('app', 'Additional options'),
+            'option_ids' => Yii::t('app', 'Related products'),
         ];
     }
 

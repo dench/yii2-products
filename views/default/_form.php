@@ -115,7 +115,7 @@ $this->registerJs($js);
         <?php endforeach; ?>
         <li class="nav-item"><a href="#main-tab" class="nav-link" data-toggle="tab"><?= Yii::t('app', 'Main') ?></a></li>
         <li class="nav-item"><a href="#complects-tab" class="nav-link" data-toggle="tab"><?= Yii::t('app', 'Complectation') ?></a></li>
-        <li class="nav-item"><a href="#options-tab" class="nav-link" data-toggle="tab"><?= Yii::t('app', 'Additional options') ?></a></li>
+        <li class="nav-item"><a href="#options-tab" class="nav-link" data-toggle="tab"><?= Yii::t('app', 'Related products') ?></a></li>
         <li class="nav-item"><a href="#variant-tab" class="nav-link" data-toggle="tab"><?= Yii::t('app', 'Price') ?></a></li>
         <li class="nav-item"><a href="#images-tab" class="nav-link" data-toggle="tab"><?= Yii::t('app', 'Images') ?></a></li>
         <li class="nav-item"><a href="#feature-tab" class="nav-link" data-toggle="tab"><?= Yii::t('app', 'Features') ?></a></li>
@@ -130,6 +130,22 @@ $this->registerJs($js);
                 <?= $form->field($model, 'keywords' . $suffix)->textInput(['maxlength' => true]) ?>
                 <?= $form->field($model, 'description' . $suffix)->textarea() ?>
                 <?= $form->field($model, 'text' . $suffix)->widget(CKEditor::className(), [
+                    'preset' => 'full',
+                    'clientOptions' => [
+                        'customConfig' => '/js/ckeditor.js',
+                        'language' => Yii::$app->language,
+                        'allowedContent' => true,
+                    ]
+                ]) ?>
+                <?= $form->field($model, 'text_tips' . $suffix)->widget(CKEditor::className(), [
+                    'preset' => 'full',
+                    'clientOptions' => [
+                        'customConfig' => '/js/ckeditor.js',
+                        'language' => Yii::$app->language,
+                        'allowedContent' => true,
+                    ]
+                ]) ?>
+                <?= $form->field($model, 'text_features' . $suffix)->widget(CKEditor::className(), [
                     'preset' => 'full',
                     'clientOptions' => [
                         'customConfig' => '/js/ckeditor.js',
