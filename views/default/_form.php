@@ -137,6 +137,14 @@ $this->registerJs($js);
                         'allowedContent' => true,
                     ]
                 ]) ?>
+                <?= $form->field($model, 'text_features' . $suffix)->widget(CKEditor::className(), [
+                    'preset' => 'full',
+                    'clientOptions' => [
+                        'customConfig' => '/js/ckeditor.js',
+                        'language' => Yii::$app->language,
+                        'allowedContent' => true,
+                    ]
+                ]) ?>
                 <?= $form->field($model, 'text_tips' . $suffix)->widget(CKEditor::className(), [
                     'preset' => 'full',
                     'clientOptions' => [
@@ -145,7 +153,23 @@ $this->registerJs($js);
                         'allowedContent' => true,
                     ]
                 ]) ?>
-                <?= $form->field($model, 'text_features' . $suffix)->widget(CKEditor::className(), [
+                <?= $form->field($model, 'text_process' . $suffix)->widget(CKEditor::className(), [
+                    'preset' => 'full',
+                    'clientOptions' => [
+                        'customConfig' => '/js/ckeditor.js',
+                        'language' => Yii::$app->language,
+                        'allowedContent' => true,
+                    ]
+                ]) ?>
+                <?= $form->field($model, 'text_use' . $suffix)->widget(CKEditor::className(), [
+                    'preset' => 'full',
+                    'clientOptions' => [
+                        'customConfig' => '/js/ckeditor.js',
+                        'language' => Yii::$app->language,
+                        'allowedContent' => true,
+                    ]
+                ]) ?>
+                <?= $form->field($model, 'text_storage' . $suffix)->widget(CKEditor::className(), [
                     'preset' => 'full',
                     'clientOptions' => [
                         'customConfig' => '/js/ckeditor.js',

@@ -35,6 +35,9 @@ use yii\web\NotFoundHttpException;
  * @property string $text
  * @property string $text_tips
  * @property string $text_features
+ * @property string text_process
+ * @property string text_use
+ * @property string text_storage
  *
  * @property array $category_ids
  * @property array $option_ids
@@ -94,8 +97,8 @@ class Product extends ActiveRecord
             [['name', 'h1', 'title', 'category_ids'], 'required'],
             [['brand_id', 'position'], 'integer'],
             [['slug', 'name', 'h1', 'title', 'keywords', 'view'], 'string', 'max' => 255],
-            [['description', 'text', 'text_tips', 'text_features'], 'string'],
-            [['slug', 'name', 'h1', 'title', 'keywords', 'description', 'text', 'text_tips', 'text_features'], 'trim'],
+            [['description', 'text', 'text_tips', 'text_features', 'text_process', 'text_use', 'text_storage'], 'string'],
+            [['slug', 'name', 'h1', 'title', 'keywords', 'description', 'text', 'text_tips', 'text_features', 'text_process', 'text_use', 'text_storage'], 'trim'],
             [['enabled', 'price_from'], 'boolean'],
             [['enabled'], 'default', 'value' => true],
             [['category_ids', 'option_ids', 'complect_ids', 'status_ids'], 'each', 'rule' => ['integer']],
@@ -124,6 +127,9 @@ class Product extends ActiveRecord
             'text' => Yii::t('app', 'Text'),
             'text_tips' => Yii::t('app', 'Tips for use'),
             'text_features' => Yii::t('app', 'Features'),
+            'text_process' => Yii::t('app', 'Process of polymerization'),
+            'text_use' => Yii::t('app', 'Scope of application'),
+            'text_storage' => Yii::t('app', 'Storage conditions'),
             'price_from' => Yii::t('app', 'from'),
             'view' => Yii::t('app', 'View template'),
             'category_ids' => Yii::t('app', 'Categories'),
