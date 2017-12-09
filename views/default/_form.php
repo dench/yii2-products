@@ -143,6 +143,7 @@ $this->registerJs($js);
                         'customConfig' => '/js/ckeditor.js',
                         'language' => Yii::$app->language,
                         'allowedContent' => true,
+                        'height' => 100,
                     ]
                 ]) ?>
                 <?= $form->field($model, 'text_tips' . $suffix)->widget(CKEditor::className(), [
@@ -151,6 +152,7 @@ $this->registerJs($js);
                         'customConfig' => '/js/ckeditor.js',
                         'language' => Yii::$app->language,
                         'allowedContent' => true,
+                        'height' => 100,
                     ]
                 ]) ?>
                 <?= $form->field($model, 'text_process' . $suffix)->widget(CKEditor::className(), [
@@ -159,6 +161,7 @@ $this->registerJs($js);
                         'customConfig' => '/js/ckeditor.js',
                         'language' => Yii::$app->language,
                         'allowedContent' => true,
+                        'height' => 100,
                     ]
                 ]) ?>
                 <?= $form->field($model, 'text_use' . $suffix)->widget(CKEditor::className(), [
@@ -167,6 +170,7 @@ $this->registerJs($js);
                         'customConfig' => '/js/ckeditor.js',
                         'language' => Yii::$app->language,
                         'allowedContent' => true,
+                        'height' => 100,
                     ]
                 ]) ?>
                 <?= $form->field($model, 'text_storage' . $suffix)->widget(CKEditor::className(), [
@@ -175,6 +179,7 @@ $this->registerJs($js);
                         'customConfig' => '/js/ckeditor.js',
                         'language' => Yii::$app->language,
                         'allowedContent' => true,
+                        'height' => 100,
                     ]
                 ]) ?>
             </div>
