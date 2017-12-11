@@ -94,12 +94,15 @@ if (!Yii::$app->request->get('all') && $dataProvider->totalCount > $dataProvider
             ],
             [
                 'class' => 'yii\grid\ActionColumn',
-                'template' => '{view} {update} {delete}',
+                'template' => '{view} {update} {copy} {delete}',
                 'buttons' => [
                     'view' => function ($url, $model, $key) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', ['/product/index', 'slug' => $model->slug], [
                             'target' => '_blank',
                         ]);
+                    },
+                    'copy' => function ($url, $model, $key) {
+                        return Html::a('<span class="glyphicon glyphicon-duplicate"></span>', ['/admin/products/default/create', 'id' => $model->id]);
                     },
                 ],
             ],

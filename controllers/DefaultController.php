@@ -81,22 +81,42 @@ class DefaultController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($id = 0)
     {
-        $model = new Product();
+        if ($id) {
+            $model = $this->findModelMulti($id);
 
-        $model->loadDefaultValues();
+            $model->slug = '';
 
-        $modelsVariant = [new Variant()];
+            /** @var $modelsVariant Variant[] */
+            $modelsVariant = Variant::find()->where(['product_id' => $id])->multilingual()->all();
 
-        $modelsVariant[0]->loadDefaultValues();
+            $variantImages = [];
+            foreach ($modelsVariant as $key => $modelVariant) {
+                $variantImages[$key] = $modelVariant->imagesAll;
+            }
 
-        $variantImages[0] = $modelsVariant[0]->imagesAll;
+            $model->isNewRecord = true;
+        } else {
+            $model = new Product();
+
+            $model->loadDefaultValues();
+
+            $modelsVariant = [new Variant()];
+
+            $modelsVariant[0]->loadDefaultValues();
+
+            $variantImages[0] = $modelsVariant[0]->imagesAll;
+        }
 
         $features = Feature::getObjectList(true, $model->category_ids);
 
         if ($post = Yii::$app->request->post()) {
             if (!Yii::$app->request->isPjax) {
+
+                if ($id) {
+                    $model->id = 0;
+                }
 
                 $model->load($post);
 
@@ -130,12 +150,24 @@ class DefaultController extends Controller
                     $transaction = \Yii::$app->db->beginTransaction();
                     try {
                         if ($flag = $model->save(false)) {
-                            foreach ($modelsVariant as $modelVariant) {
+                            foreach ($modelsVariant as $k => $modelVariant) {
+                                if (!isset($post['Variant'][$k]['image_ids'])) {
+                                    $modelVariant->image_ids = [];
+                                    $modelVariant->image_id = null;
+                                    $images = [];
+                                }
                                 /** @var Variant $modelVariant */
                                 if (!$modelVariant->image_id && !empty($modelVariant->image_ids)) {
                                     $modelVariant->image_id = current($modelVariant->image_ids);
                                 }
+                                if ($id) {
+                                    $modelVariant->id = 0;
+                                    $modelVariant->isNewRecord = true;
+                                }
                                 $modelVariant->product_id = $model->id;
+                                if (!isset($post['Variant'][$k]['value_ids'])) {
+                                    $modelVariant->value_ids = [];
+                                }
                                 if (!($flag = $modelVariant->save(false))) {
                                     $transaction->rollBack();
                                     break;
@@ -264,12 +296,20 @@ class DefaultController extends Controller
                                     $deleted_image->delete();
                                 }
                             }
-                            foreach ($modelsVariant as $modelVariant) {
+                            foreach ($modelsVariant as $k => $modelVariant) {
+                                if (!isset($post['Variant'][$k]['image_ids'])) {
+                                    $modelVariant->image_ids = [];
+                                    $modelVariant->image_id = null;
+                                    $images = [];
+                                }
                                 /** @var Variant $modelVariant */
                                 if (!$modelVariant->image_id && !empty($modelVariant->image_ids)) {
                                     $modelVariant->image_id = current($modelVariant->image_ids);
                                 }
                                 $modelVariant->product_id = $model->id;
+                                if (!isset($post['Variant'][$k]['value_ids'])) {
+                                    $modelVariant->value_ids = [];
+                                }
                                 if (!($flag = $modelVariant->save(false))) {
                                     $transaction->rollBack();
                                     break;
