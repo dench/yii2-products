@@ -7,6 +7,7 @@ use yii\helpers\Html;
 /* @var $modelsVariant dench\products\models\Variant[] */
 /* @var $variantImages dench\image\models\Image[] */
 /* @var $features dench\products\models\Feature[] */
+/* @var $files dench\image\models\File[] */
 
 $this->title = Yii::t('app', 'Update {modelClass}: ', [
     'modelClass' => 'Product',
@@ -24,6 +25,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
         'modelsVariant' => $modelsVariant,
         'variantImages' => $variantImages,
         'features' => $features,
+        'files' => $files,
     ]) ?>
 
 </div>

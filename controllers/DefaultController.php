@@ -2,6 +2,7 @@
 
 namespace dench\products\controllers;
 
+use dench\image\models\File;
 use dench\language\models\Language;
 use dench\products\models\Feature;
 use dench\products\models\Model;
@@ -111,11 +112,25 @@ class DefaultController extends Controller
 
         $features = Feature::getObjectList(true, $model->category_ids);
 
+        $files = [];
+
         if ($post = Yii::$app->request->post()) {
             if (!Yii::$app->request->isPjax) {
 
                 if ($id) {
                     $model->id = 0;
+                }
+
+                /** @var File[] $files */
+                $files = [];
+                $file_ids = isset($post['File']) ? $post['File'] : [];
+                foreach ($file_ids as $key => $file) {
+                    $files[$key] = File::findOne($key);
+                }
+                if ($files) {
+                    Model::loadMultiple($files, $post);
+                } else {
+                    $model->file_ids = [];
                 }
 
                 $model->load($post);
@@ -145,6 +160,7 @@ class DefaultController extends Controller
                 $valid = $model->validate();
                 $valid = Model::validateMultiple($modelsVariant) && $valid;
                 $valid = Model::validateMultiple($images) && $valid;
+                $valid = Model::validateMultiple($files) && $valid;
 
                 if ($valid) {
                     $transaction = \Yii::$app->db->beginTransaction();
@@ -155,6 +171,12 @@ class DefaultController extends Controller
                                     $modelVariant->image_ids = [];
                                     $modelVariant->image_id = null;
                                     $images = [];
+                                }
+                                foreach ($files as $key => $file) {
+                                    if (!($flag = $file->save(false))) {
+                                        $transaction->rollBack();
+                                        break;
+                                    }
                                 }
                                 /** @var Variant $modelVariant */
                                 if (!$modelVariant->image_id && !empty($modelVariant->image_ids)) {
@@ -218,6 +240,7 @@ class DefaultController extends Controller
             'modelsVariant' => $modelsVariant,
             'variantImages' => $variantImages,
             'features' => $features,
+            'files' => $files,
         ]);
     }
 
@@ -241,6 +264,8 @@ class DefaultController extends Controller
         }
 
         $features = Feature::getObjectList(true, $model->category_ids);
+
+        $files = $model->filesAll;
 
         if ($post = Yii::$app->request->post()) {
 
@@ -280,9 +305,26 @@ class DefaultController extends Controller
                 }
                 $deleted_ids = array_diff($old_ids, $new_ids);
 
+                //$f_old_ids = ArrayHelper::map($files, 'id', 'id');
+                /** @var File[] $files */
+                $files = [];
+                $file_ids = isset($post['File']) ? $post['File'] : [];
+                $f_new_ids = [];
+                foreach ($file_ids as $key => $file) {
+                    $files[$key] = File::findOne($key);
+                    $f_new_ids[$key] = $key;
+                }
+                if ($files) {
+                    Model::loadMultiple($files, $post);
+                } else {
+                    $model->file_ids = [];
+                }
+                //$f_deleted_ids = array_diff($f_old_ids, $f_new_ids);
+
                 $valid = $model->validate();
                 $valid = Model::validateMultiple($modelsVariant) && $valid;
                 $valid = Model::validateMultiple($images) && $valid;
+                $valid = Model::validateMultiple($files) && $valid;
 
                 if ($valid) {
                     $transaction = \Yii::$app->db->beginTransaction();
@@ -296,6 +338,18 @@ class DefaultController extends Controller
                                     $deleted_image->delete();
                                 }
                             }
+                            foreach ($files as $key => $file) {
+                                if (!($flag = $file->save(false))) {
+                                    $transaction->rollBack();
+                                    break;
+                                }
+                            }
+                            /* Deletes all files, including files tied to other objects.
+                             * foreach ($f_deleted_ids as $d_id) {
+                                if ($deleted_file = File::findOne($d_id)) {
+                                    $deleted_file->delete();
+                                }
+                            }*/
                             foreach ($modelsVariant as $k => $modelVariant) {
                                 if (!isset($post['Variant'][$k]['image_ids'])) {
                                     $modelVariant->image_ids = [];
@@ -363,6 +417,7 @@ class DefaultController extends Controller
             'modelsVariant' => (empty($modelsVariant)) ? [new Variant()] : $modelsVariant,
             'variantImages' => $variantImages,
             'features' => $features,
+            'files' => $files,
         ]);
     }
 

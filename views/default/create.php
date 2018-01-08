@@ -7,6 +7,7 @@ use yii\helpers\Html;
 /* @var $modelsVariant dench\products\models\Variant[] */
 /* @var $variantImages dench\image\models\Image[] */
 /* @var $features dench\products\models\Feature[] */
+/* @var $files dench\image\models\File[] */
 
 $this->title = Yii::t('app', 'Create Product');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Products'), 'url' => ['index']];
@@ -21,6 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'modelsVariant' => $modelsVariant,
         'variantImages' => $variantImages,
         'features' => $features,
+        'files' => $files,
     ]) ?>
 
 </div>

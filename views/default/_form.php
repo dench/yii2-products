@@ -1,5 +1,6 @@
 <?php
 
+use dench\image\widgets\FilesForm;
 use dench\products\models\Brand;
 use dench\products\models\Category;
 use dench\products\models\Complect;
@@ -114,9 +115,10 @@ $this->registerJs($js);
             <li class="nav-item<?= empty($suffix) ? ' active': '' ?>"><a href="#lang<?= $suffix ?>-tab" class="nav-link" data-toggle="tab"><?= $name ?></a></li>
         <?php endforeach; ?>
         <li class="nav-item"><a href="#main-tab" class="nav-link" data-toggle="tab"><?= Yii::t('app', 'Main') ?></a></li>
+        <li class="nav-item"><a href="#variant-tab" class="nav-link" data-toggle="tab"><?= Yii::t('app', 'Price') ?></a></li>
         <li class="nav-item"><a href="#complects-tab" class="nav-link" data-toggle="tab"><?= Yii::t('app', 'Complectation') ?></a></li>
         <li class="nav-item"><a href="#options-tab" class="nav-link" data-toggle="tab"><?= Yii::t('app', 'Related products') ?></a></li>
-        <li class="nav-item"><a href="#variant-tab" class="nav-link" data-toggle="tab"><?= Yii::t('app', 'Price') ?></a></li>
+        <li class="nav-item"><a href="#files-tab" class="nav-link" data-toggle="tab"><?= Yii::t('app', 'Files') ?></a></li>
         <li class="nav-item"><a href="#images-tab" class="nav-link" data-toggle="tab"><?= Yii::t('app', 'Images') ?></a></li>
         <li class="nav-item"><a href="#feature-tab" class="nav-link" data-toggle="tab"><?= Yii::t('app', 'Features') ?></a></li>
     </ul>
@@ -224,6 +226,18 @@ $this->registerJs($js);
                         'disabled' => true,
                     ]
                 ]
+            ]) ?>
+        </div>
+
+        <div class="tab-pane fade" id="files-tab">
+            <?= FilesForm::widget([
+                'files' => $files,
+                'fileEnabled' => $model->fileEnabled,
+                'fileName' => $model->fileName,
+                'col' => 'col-sm-4 col-md-3',
+                'modelInputName' => 'Product',
+                'fileInputName' => 'files',
+                'label' => null,
             ]) ?>
         </div>
 
