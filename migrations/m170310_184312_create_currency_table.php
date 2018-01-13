@@ -46,7 +46,7 @@ class m170310_184312_create_currency_table extends Migration
         $this->update('currency', ['position' => $id], ['id' => $id]);
 
         $this->batchInsert('currency_lang', ['currency_id', 'lang_id', 'name', 'after'], [
-            [$id, 'ru', 'Гривна', 'грн'],
+            [$id, 'ru', 'Гривна', 'грн '],
         ]);
     }
 
