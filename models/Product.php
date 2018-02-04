@@ -39,6 +39,8 @@ use yii\web\NotFoundHttpException;
  * @property string text_process
  * @property string text_use
  * @property string text_storage
+ * @property string text_short
+ * @property string text_top
  *
  * @property array $category_ids
  * @property array $option_ids
@@ -125,8 +127,8 @@ class Product extends ActiveRecord
             [['name', 'h1', 'title', 'category_ids', 'slug'], 'required'],
             [['brand_id', 'position'], 'integer'],
             [['slug', 'name', 'h1', 'title', 'keywords', 'view'], 'string', 'max' => 255],
-            [['description', 'text', 'text_tips', 'text_features', 'text_process', 'text_use', 'text_storage'], 'string'],
-            [['slug', 'name', 'h1', 'title', 'keywords', 'description', 'text', 'text_tips', 'text_features', 'text_process', 'text_use', 'text_storage'], 'trim'],
+            [['description', 'text', 'text_tips', 'text_features', 'text_process', 'text_use', 'text_storage', 'text_short', 'text_top'], 'string'],
+            [['slug', 'name', 'h1', 'title', 'keywords', 'description', 'text', 'text_tips', 'text_features', 'text_process', 'text_use', 'text_storage', 'text_short', 'text_top'], 'trim'],
             [['enabled', 'price_from'], 'boolean'],
             [['enabled'], 'default', 'value' => true],
             [['category_ids', 'option_ids', 'complect_ids', 'status_ids', 'file_ids', 'fileEnabled'], 'each', 'rule' => ['integer']],
@@ -150,15 +152,17 @@ class Product extends ActiveRecord
             'enabled' => Yii::t('app', 'Enabled'),
             'name' => Yii::t('app', 'Name'),
             'h1' => Yii::t('app', 'H1'),
-            'title' => Yii::t('app', 'Title'),
-            'keywords' => Yii::t('app', 'Keywords'),
-            'description' => Yii::t('app', 'Description'),
-            'text' => Yii::t('app', 'Text'),
+            'title' => Yii::t('app', 'META Title'),
+            'keywords' => Yii::t('app', 'META Keywords'),
+            'description' => Yii::t('app', 'META Description'),
+            'text_short' => Yii::t('app', 'Short description'),
+            'text' => Yii::t('app', 'Description'),
             'text_tips' => Yii::t('app', 'Tips for use'),
             'text_features' => Yii::t('app', 'Features'),
             'text_process' => Yii::t('app', 'Process of polymerization'),
             'text_use' => Yii::t('app', 'Scope of application'),
             'text_storage' => Yii::t('app', 'Storage conditions'),
+            'text_top' => Yii::t('app', 'Description (top)'),
             'price_from' => Yii::t('app', 'from'),
             'view' => Yii::t('app', 'View template'),
             'category_ids' => Yii::t('app', 'Categories'),

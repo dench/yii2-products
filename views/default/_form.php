@@ -131,6 +131,15 @@ $this->registerJs($js);
                 <?= $form->field($model, 'title' . $suffix)->textInput(['maxlength' => true]) ?>
                 <?= $form->field($model, 'keywords' . $suffix)->textInput(['maxlength' => true]) ?>
                 <?= $form->field($model, 'description' . $suffix)->textarea() ?>
+                <?= $form->field($model, 'text_short' . $suffix)->widget(CKEditor::className(), [
+                    'preset' => 'full',
+                    'clientOptions' => [
+                        'customConfig' => '/js/ckeditor.js',
+                        'language' => Yii::$app->language,
+                        'allowedContent' => true,
+                        'height' => 100,
+                    ]
+                ]) ?>
                 <?= $form->field($model, 'text' . $suffix)->widget(CKEditor::className(), [
                     'preset' => 'full',
                     'clientOptions' => [
@@ -176,6 +185,15 @@ $this->registerJs($js);
                     ]
                 ]) ?>
                 <?= $form->field($model, 'text_storage' . $suffix)->widget(CKEditor::className(), [
+                    'preset' => 'full',
+                    'clientOptions' => [
+                        'customConfig' => '/js/ckeditor.js',
+                        'language' => Yii::$app->language,
+                        'allowedContent' => true,
+                        'height' => 100,
+                    ]
+                ]) ?>
+                <?= $form->field($model, 'text_top' . $suffix)->widget(CKEditor::className(), [
                     'preset' => 'full',
                     'clientOptions' => [
                         'customConfig' => '/js/ckeditor.js',
