@@ -41,7 +41,7 @@ if (!Yii::$app->request->get('all') && $dataProvider->totalCount > $dataProvider
             [
                 'attribute' => 'name',
                 'content' => function($model, $key, $index, $column){
-                    return Html::a($model->name, ['/products/index', 'ProductSearch[category_id]' => $model->id]);
+                    return Html::a($model->name, ['/admin/products/default/index', 'ProductSearch[category_id]' => $model->id]);
                 },
             ],
             'slug',
