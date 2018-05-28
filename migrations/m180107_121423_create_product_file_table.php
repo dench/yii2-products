@@ -17,7 +17,9 @@ class m180107_121423_create_product_file_table extends Migration
         $this->createTable('product_file', [
             'product_id' => $this->integer()->notNull(),
             'file_id' => $this->integer()->notNull(),
+            'name' => $this->string()->notNull(),
             'position' => $this->integer()->notNull()->defaultValue(0),
+            'enabled' => $this->boolean()->notNull()->defaultValue(1),
         ], $tableOptions);
 
         $this->addPrimaryKey('pk-product_file', 'product_file', ['product_id', 'file_id']);
