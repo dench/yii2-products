@@ -131,15 +131,19 @@ $this->registerJs($js);
                 <?= $form->field($model, 'title' . $suffix)->textInput(['maxlength' => true]) ?>
                 <?= $form->field($model, 'keywords' . $suffix)->textInput(['maxlength' => true]) ?>
                 <?= $form->field($model, 'description' . $suffix)->textarea() ?>
-                <?= $form->field($model, 'text_short' . $suffix)->widget(CKEditor::className(), [
-                    'preset' => 'full',
-                    'clientOptions' => [
-                        'customConfig' => '/js/ckeditor.js',
-                        'language' => Yii::$app->language,
-                        'allowedContent' => true,
-                        'height' => 100,
-                    ]
-                ]) ?>
+                <?php
+                if (isset($model->text_short)) {
+                    echo $form->field($model, 'text_short' . $suffix)->widget(CKEditor::className(), [
+                        'preset' => 'full',
+                        'clientOptions' => [
+                            'customConfig' => '/js/ckeditor.js',
+                            'language' => Yii::$app->language,
+                            'allowedContent' => true,
+                            'height' => 100,
+                        ]
+                    ]);
+                }
+                ?>
                 <?= $form->field($model, 'text' . $suffix)->widget(CKEditor::className(), [
                     'preset' => 'full',
                     'clientOptions' => [
@@ -148,60 +152,84 @@ $this->registerJs($js);
                         'allowedContent' => true,
                     ]
                 ]) ?>
-                <?= $form->field($model, 'text_features' . $suffix)->widget(CKEditor::className(), [
-                    'preset' => 'full',
-                    'clientOptions' => [
-                        'customConfig' => '/js/ckeditor.js',
-                        'language' => Yii::$app->language,
-                        'allowedContent' => true,
-                        'height' => 100,
-                    ]
-                ]) ?>
-                <?= $form->field($model, 'text_tips' . $suffix)->widget(CKEditor::className(), [
-                    'preset' => 'full',
-                    'clientOptions' => [
-                        'customConfig' => '/js/ckeditor.js',
-                        'language' => Yii::$app->language,
-                        'allowedContent' => true,
-                        'height' => 100,
-                    ]
-                ]) ?>
-                <?= $form->field($model, 'text_process' . $suffix)->widget(CKEditor::className(), [
-                    'preset' => 'full',
-                    'clientOptions' => [
-                        'customConfig' => '/js/ckeditor.js',
-                        'language' => Yii::$app->language,
-                        'allowedContent' => true,
-                        'height' => 100,
-                    ]
-                ]) ?>
-                <?= $form->field($model, 'text_use' . $suffix)->widget(CKEditor::className(), [
-                    'preset' => 'full',
-                    'clientOptions' => [
-                        'customConfig' => '/js/ckeditor.js',
-                        'language' => Yii::$app->language,
-                        'allowedContent' => true,
-                        'height' => 100,
-                    ]
-                ]) ?>
-                <?= $form->field($model, 'text_storage' . $suffix)->widget(CKEditor::className(), [
-                    'preset' => 'full',
-                    'clientOptions' => [
-                        'customConfig' => '/js/ckeditor.js',
-                        'language' => Yii::$app->language,
-                        'allowedContent' => true,
-                        'height' => 100,
-                    ]
-                ]) ?>
-                <?= $form->field($model, 'text_top' . $suffix)->widget(CKEditor::className(), [
-                    'preset' => 'full',
-                    'clientOptions' => [
-                        'customConfig' => '/js/ckeditor.js',
-                        'language' => Yii::$app->language,
-                        'allowedContent' => true,
-                        'height' => 100,
-                    ]
-                ]) ?>
+                <?php
+                if (isset($model->text_features)) {
+                    echo $form->field($model, 'text_features' . $suffix)->widget(CKEditor::className(), [
+                        'preset' => 'full',
+                        'clientOptions' => [
+                            'customConfig' => '/js/ckeditor.js',
+                            'language' => Yii::$app->language,
+                            'allowedContent' => true,
+                            'height' => 100,
+                        ]
+                    ]);
+                }
+                ?>
+                <?php
+                if (isset($model->text_tips)) {
+                    echo $form->field($model, 'text_tips' . $suffix)->widget(CKEditor::className(), [
+                        'preset' => 'full',
+                        'clientOptions' => [
+                            'customConfig' => '/js/ckeditor.js',
+                            'language' => Yii::$app->language,
+                            'allowedContent' => true,
+                            'height' => 100,
+                        ]
+                    ]);
+                }
+                ?>
+                <?php
+                if (isset($model->text_process)) {
+                    echo $form->field($model, 'text_process' . $suffix)->widget(CKEditor::className(), [
+                        'preset' => 'full',
+                        'clientOptions' => [
+                            'customConfig' => '/js/ckeditor.js',
+                            'language' => Yii::$app->language,
+                            'allowedContent' => true,
+                            'height' => 100,
+                        ]
+                    ]);
+                }
+                ?>
+                <?php
+                if (isset($model->text_use)) {
+                    echo $form->field($model, 'text_use' . $suffix)->widget(CKEditor::className(), [
+                        'preset' => 'full',
+                        'clientOptions' => [
+                            'customConfig' => '/js/ckeditor.js',
+                            'language' => Yii::$app->language,
+                            'allowedContent' => true,
+                            'height' => 100,
+                        ]
+                    ]);
+                }
+                ?>
+                <?php
+                if (isset($model->text_storage)) {
+                    echo $form->field($model, 'text_storage' . $suffix)->widget(CKEditor::className(), [
+                        'preset' => 'full',
+                        'clientOptions' => [
+                            'customConfig' => '/js/ckeditor.js',
+                            'language' => Yii::$app->language,
+                            'allowedContent' => true,
+                            'height' => 100,
+                        ]
+                    ]);
+                }
+                ?>
+                <?php
+                if (isset($model->text_top)) {
+                    echo $form->field($model, 'text_top' . $suffix)->widget(CKEditor::className(), [
+                        'preset' => 'full',
+                        'clientOptions' => [
+                            'customConfig' => '/js/ckeditor.js',
+                            'language' => Yii::$app->language,
+                            'allowedContent' => true,
+                            'height' => 100,
+                        ]
+                    ]);
+                }
+                ?>
             </div>
         <?php endforeach; ?>
 
