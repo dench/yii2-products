@@ -29,6 +29,8 @@ use yii\db\ActiveRecord;
  * @property integer $image_id
  *
  * @property string $name
+ * @property integer $priceDef
+ * @property Currency $currencyDef
  *
  * @property Currency $currency
  * @property Product $product
@@ -42,6 +44,8 @@ use yii\db\ActiveRecord;
 class Variant extends ActiveRecord
 {
     private $_imageEnabled = null;
+    private $_price;
+    private $_currency;
 
     /**
      * @inheritdoc
@@ -221,5 +225,31 @@ class Variant extends ActiveRecord
     public function getImage()
     {
         return $this->hasOne(Image::className(), ['id' => 'image_id']);
+    }
+
+    public function getPriceDef()
+    {
+        if (empty($this->_currency)) {
+            $this->_currency = Currency::findOne(Yii::$app->params['currency_id']);
+        }
+
+        if (empty($this->_currency)) {
+            return $this->price;
+        } else {
+            return round($this->price * $this->_currency->rate);
+        }
+    }
+
+    public function getCurrencyDef()
+    {
+        if (empty($this->_currency)) {
+            $this->_currency = Currency::findOne(Yii::$app->params['currency_id']);
+        }
+
+        if (empty($this->_currency)) {
+            return $this->currency;
+        } else {
+            return $this->_currency;
+        }
     }
 }

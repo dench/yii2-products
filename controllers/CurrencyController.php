@@ -48,6 +48,11 @@ class CurrencyController extends Controller
     {
         $dataProvider = new ActiveDataProvider([
             'query' => Currency::find(),
+            'sort'=> [
+                'defaultOrder' => [
+                    'position' => SORT_ASC,
+                ],
+            ],
         ]);
 
         return $this->render('index', [

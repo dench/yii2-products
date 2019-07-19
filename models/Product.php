@@ -46,6 +46,10 @@ use yii\web\NotFoundHttpException;
  * @property array $option_ids
  * @property array $complect_ids
  * @property array $status_ids
+ * @property integer $price
+ * @property Currency $currency
+ * @property integer $priceDef
+ * @property Currency $currencyDef
  *
  * @property Brand $brand
  * @property Category[] $categories
@@ -63,6 +67,8 @@ class Product extends ActiveRecord
 {
     private $_fileEnabled = null;
     private $_fileName = null;
+    private $_price;
+    private $_currency;
 
     /**
      * @inheritdoc
@@ -169,6 +175,10 @@ class Product extends ActiveRecord
             'status_ids' => Yii::t('app', 'Statuses'),
             'complect_ids' => Yii::t('app', 'Complectation'),
             'option_ids' => Yii::t('app', 'Related products'),
+            'price' => Yii::t('app', 'Price'),
+            'currency' => Yii::t('app', 'Currency'),
+            'priceDef' => Yii::t('app', 'Price'),
+            'currencyDef' => Yii::t('app', 'Currency'),
         ];
     }
 
@@ -342,5 +352,49 @@ class Product extends ActiveRecord
     public function setFileEnabled($value)
     {
         $this->_fileEnabled = $value;
+    }
+
+    public function getPrice()
+    {
+        if (!empty($this->variants[0]->price)) {
+            return $this->variants[0]->price;
+        }
+
+        return null;
+    }
+
+    public function getPriceDef()
+    {
+        if (empty($this->_currency)) {
+            $this->_currency = Currency::findOne(Yii::$app->params['currency_id']);
+        }
+
+        if (empty($this->_currency)) {
+            return $this->variants[0]->price;
+        } else {
+            return round($this->variants[0]->price * $this->_currency->rate);
+        }
+    }
+
+    public function getCurrency()
+    {
+        if (!empty($this->variants[0]->currency)) {
+            return $this->variants[0]->currency;
+        }
+
+        return null;
+    }
+
+    public function getCurrencyDef()
+    {
+        if (empty($this->_currency)) {
+            $this->_currency = Currency::findOne(Yii::$app->params['currency_id']);
+        }
+
+        if (empty($this->_currency)) {
+            return $this->variants[0]->currency;
+        } else {
+            return $this->_currency;
+        }
     }
 }

@@ -64,7 +64,8 @@ if (!Yii::$app->request->get('all') && $dataProvider->totalCount > $dataProvider
                 'value' => 'brand.name',
                 'filter' => Brand::getList(null),
             ],
-            'created_at:date',
+            'price',
+            'priceDef',
             [
                 'attribute' => 'status_id',
                 'value' => function ($model, $key, $index, $column) {
