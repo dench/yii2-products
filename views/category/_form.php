@@ -56,7 +56,7 @@ $this->registerJs($js);
                 <?= $form->field($model, 'title' . $suffix)->textInput(['maxlength' => true]) ?>
                 <?= $form->field($model, 'keywords' . $suffix)->textInput(['maxlength' => true]) ?>
                 <?= $form->field($model, 'description' . $suffix)->textarea() ?>
-                <?= $form->field($model, 'text' . $suffix)->widget(CKEditor::className(), [
+                <?= $form->field($model, 'text' . $suffix)->widget(CKEditor::class, [
                     'preset' => 'full',
                     'clientOptions' => [
                         'customConfig' => '/js/ckeditor.js',
@@ -64,7 +64,7 @@ $this->registerJs($js);
                         'allowedContent' => true,
                     ]
                 ]) ?>
-                <?= $form->field($model, 'seo' . $suffix)->widget(CKEditor::className(), [
+                <?= $form->field($model, 'seo' . $suffix)->widget(CKEditor::class, [
                     'preset' => 'full',
                     'clientOptions' => [
                         'customConfig' => '/js/ckeditor.js',

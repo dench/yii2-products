@@ -27,7 +27,7 @@ class VariantController extends Controller
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'delete' => ['POST'],
                 ],
@@ -39,7 +39,7 @@ class VariantController extends Controller
     {
         return [
             'sorting' => [
-                'class' => SortingAction::className(),
+                'class' => SortingAction::class,
                 'query' => Variant::find(),
             ],
         ];

@@ -38,7 +38,7 @@ if (!Yii::$app->request->get('all') && $dataProvider->totalCount > $dataProvider
         'layout' => "{summary}\n{$showAll}\n{items}\n{pager}",
         'columns' => [
             [
-                'class' => SortableColumn::className(),
+                'class' => SortableColumn::class,
             ],
             [
                 'attribute' => 'name',

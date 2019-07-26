@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
         },
         'columns' => [
             [
-                'class' => SortableColumn::className(),
+                'class' => SortableColumn::class,
             ],
             'name',
             'enabled',

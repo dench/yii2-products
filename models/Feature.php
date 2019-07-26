@@ -40,10 +40,10 @@ class Feature extends ActiveRecord
     public function behaviors()
     {
         return [
-            LanguageBehavior::className(),
-            SortableBehavior::className(),
+            LanguageBehavior::class,
+            SortableBehavior::class,
             [
-                'class' => LinkerBehavior::className(),
+                'class' => LinkerBehavior::class,
                 'relations' => [
                     'variant_ids' => ['variants'],
                     'category_ids' => ['categories'],
@@ -97,7 +97,7 @@ class Feature extends ActiveRecord
      */
     public function getCategories()
     {
-        return $this->hasMany(Category::className(), ['id' => 'category_id'])->viaTable('feature_category', ['feature_id' => 'id']);
+        return $this->hasMany(Category::class, ['id' => 'category_id'])->viaTable('feature_category', ['feature_id' => 'id']);
     }
 
     /**
@@ -105,7 +105,7 @@ class Feature extends ActiveRecord
      */
     public function getFilters()
     {
-        return $this->hasMany(Category::className(), ['id' => 'category_id'])->viaTable('feature_filter', ['feature_id' => 'id']);
+        return $this->hasMany(Category::class, ['id' => 'category_id'])->viaTable('feature_filter', ['feature_id' => 'id']);
     }
 
     /**
@@ -113,7 +113,7 @@ class Feature extends ActiveRecord
      */
     public function getValues()
     {
-        return $this->hasMany(Value::className(), ['feature_id' => 'id']);
+        return $this->hasMany(Value::class, ['feature_id' => 'id']);
     }
 
     /**
@@ -122,7 +122,7 @@ class Feature extends ActiveRecord
     public function getVariants()
     {
         // TODO: value_id != feature_id
-        return $this->hasMany(Variant::className(), ['id' => 'variant_id'])->viaTable('variant_value', ['value_id' => 'id']);
+        return $this->hasMany(Variant::class, ['id' => 'variant_id'])->viaTable('variant_value', ['value_id' => 'id']);
     }
 
     /**

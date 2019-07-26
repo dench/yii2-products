@@ -22,7 +22,7 @@ class UnitController extends Controller
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'delete' => ['POST'],
                 ],
@@ -34,7 +34,7 @@ class UnitController extends Controller
     {
         return [
             'sorting' => [
-                'class' => SortingAction::className(),
+                'class' => SortingAction::class,
                 'query' => Unit::find(),
             ],
         ];

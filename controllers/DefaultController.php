@@ -32,7 +32,7 @@ class DefaultController extends Controller
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'delete' => ['POST'],
                 ],
@@ -44,7 +44,7 @@ class DefaultController extends Controller
     {
         return [
             'sorting' => [
-                'class' => SortingAction::className(),
+                'class' => SortingAction::class,
                 'query' => Product::find(),
             ],
         ];
@@ -135,7 +135,7 @@ class DefaultController extends Controller
 
                 $model->load($post);
 
-                $modelsVariant = Model::createMultiple(Variant::classname(), $modelsVariant);
+                $modelsVariant = Model::createMultiple(Variant::class, $modelsVariant);
                 Model::loadMultiple($modelsVariant, Yii::$app->request->post());
 
                 // ajax validation
@@ -218,7 +218,7 @@ class DefaultController extends Controller
                 } else {
                     $features = [];
                 }
-                $modelsVariant = Model::createMultiple(Variant::classname(), $modelsVariant);
+                $modelsVariant = Model::createMultiple(Variant::class, $modelsVariant);
                 Model::loadMultiple($modelsVariant, $post);
                 $variantImages = [];
                 foreach ($modelsVariant as $key => $modelVariant) {
@@ -274,7 +274,7 @@ class DefaultController extends Controller
             if (!Yii::$app->request->isPjax) {
 
                 $oldIDs = ArrayHelper::map($modelsVariant, 'id', 'id');
-                $modelsVariant = Model::createMultiple(Variant::classname(), $modelsVariant);
+                $modelsVariant = Model::createMultiple(Variant::class, $modelsVariant);
                 Model::loadMultiple($modelsVariant, $post);
                 $deletedIDs = array_diff($oldIDs, array_filter(ArrayHelper::map($modelsVariant, 'id', 'id')));
 
@@ -395,7 +395,7 @@ class DefaultController extends Controller
                 } else {
                     $features = [];
                 }
-                $modelsVariant = Model::createMultiple(Variant::classname(), $modelsVariant);
+                $modelsVariant = Model::createMultiple(Variant::class, $modelsVariant);
                 Model::loadMultiple($modelsVariant, $post);
                 $variantImages = [];
                 foreach ($modelsVariant as $key => $modelVariant) {

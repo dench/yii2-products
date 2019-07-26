@@ -26,7 +26,7 @@ class CategoryController extends Controller
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'delete' => ['POST'],
                 ],
@@ -38,7 +38,7 @@ class CategoryController extends Controller
     {
         return [
             'sorting' => [
-                'class' => SortingAction::className(),
+                'class' => SortingAction::class,
                 'query' => Category::find(),
             ],
         ];

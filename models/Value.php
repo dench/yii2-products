@@ -35,8 +35,8 @@ class Value extends ActiveRecord
     public function behaviors()
     {
         return [
-            LanguageBehavior::className(),
-            SortableBehavior::className(),
+            LanguageBehavior::class,
+            SortableBehavior::class,
         ];
     }
 
@@ -49,7 +49,7 @@ class Value extends ActiveRecord
             [['feature_id', 'name'], 'required'],
             [['name'], 'string', 'max' => 255],
             [['feature_id', 'position'], 'integer'],
-            [['feature_id'], 'exist', 'skipOnError' => true, 'targetClass' => Feature::className(), 'targetAttribute' => ['feature_id' => 'id']],
+            [['feature_id'], 'exist', 'skipOnError' => true, 'targetClass' => Feature::class, 'targetAttribute' => ['feature_id' => 'id']],
         ];
     }
 
@@ -79,7 +79,7 @@ class Value extends ActiveRecord
      */
     public function getFeature()
     {
-        return $this->hasOne(Feature::className(), ['id' => 'feature_id']);
+        return $this->hasOne(Feature::class, ['id' => 'feature_id']);
     }
 
     /**
@@ -87,7 +87,7 @@ class Value extends ActiveRecord
      */
     public function getVariants()
     {
-        return $this->hasMany(Variant::className(), ['id' => 'variant_id'])->viaTable('variant_value', ['value_id' => 'id']);
+        return $this->hasMany(Variant::class, ['id' => 'variant_id'])->viaTable('variant_value', ['value_id' => 'id']);
     }
 
     /**

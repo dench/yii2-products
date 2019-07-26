@@ -61,11 +61,11 @@ class Variant extends ActiveRecord
     public function behaviors()
     {
         return [
-            LanguageBehavior::className(),
-            TimestampBehavior::className(),
-            SortableBehavior::className(),
+            LanguageBehavior::class,
+            TimestampBehavior::class,
+            SortableBehavior::class,
             [
-                'class' => LinkerBehavior::className(),
+                'class' => LinkerBehavior::class,
                 'relations' => [
                     'value_ids' => ['values'],
                     'image_ids' => [
@@ -101,10 +101,10 @@ class Variant extends ActiveRecord
             [['enabled'], 'boolean'],
             [['enabled'], 'default', 'value' => true],
             [['value_ids', 'image_ids', 'imageEnabled'], 'each', 'rule' => ['integer']],
-            [['currency_id'], 'exist', 'skipOnError' => true, 'targetClass' => Currency::className(), 'targetAttribute' => ['currency_id' => 'id']],
-            [['product_id'], 'exist', 'skipOnError' => true, 'targetClass' => Product::className(), 'targetAttribute' => ['product_id' => 'id']],
-            [['unit_id'], 'exist', 'skipOnError' => true, 'targetClass' => Unit::className(), 'targetAttribute' => ['unit_id' => 'id']],
-            [['image_id'], 'exist', 'skipOnError' => true, 'targetClass' => Image::className(), 'targetAttribute' => ['image_id' => 'id']],
+            [['currency_id'], 'exist', 'skipOnError' => true, 'targetClass' => Currency::class, 'targetAttribute' => ['currency_id' => 'id']],
+            [['product_id'], 'exist', 'skipOnError' => true, 'targetClass' => Product::class, 'targetAttribute' => ['product_id' => 'id']],
+            [['unit_id'], 'exist', 'skipOnError' => true, 'targetClass' => Unit::class, 'targetAttribute' => ['unit_id' => 'id']],
+            [['image_id'], 'exist', 'skipOnError' => true, 'targetClass' => Image::class, 'targetAttribute' => ['image_id' => 'id']],
         ];
     }
 
@@ -144,7 +144,7 @@ class Variant extends ActiveRecord
      */
     public function getCurrency()
     {
-        return $this->hasOne(Currency::className(), ['id' => 'currency_id']);
+        return $this->hasOne(Currency::class, ['id' => 'currency_id']);
     }
 
     /**
@@ -152,7 +152,7 @@ class Variant extends ActiveRecord
      */
     public function getProduct()
     {
-        return $this->hasOne(Product::className(), ['id' => 'product_id']);
+        return $this->hasOne(Product::class, ['id' => 'product_id']);
     }
 
     /**
@@ -160,7 +160,7 @@ class Variant extends ActiveRecord
      */
     public function getUnit()
     {
-        return $this->hasOne(Unit::className(), ['id' => 'unit_id']);
+        return $this->hasOne(Unit::class, ['id' => 'unit_id']);
     }
 
     /**
@@ -168,7 +168,7 @@ class Variant extends ActiveRecord
      */
     public function getValues()
     {
-        return $this->hasMany(Value::className(), ['id' => 'value_id'])->viaTable('variant_value', ['variant_id' => 'id'])->orderBy(['position' => SORT_ASC]);
+        return $this->hasMany(Value::class, ['id' => 'value_id'])->viaTable('variant_value', ['variant_id' => 'id'])->orderBy(['position' => SORT_ASC]);
     }
 
     /**
@@ -177,7 +177,7 @@ class Variant extends ActiveRecord
     public function getImages()
     {
         $name = $this->tableName();
-        return $this->hasMany(Image::className(), ['id' => 'image_id'])
+        return $this->hasMany(Image::class, ['id' => 'image_id'])
             ->viaTable($name . '_image', [$name . '_id' => 'id'])
             ->leftJoin($name . '_image', 'id=image_id')
             ->where([$name . '_image.' . $name . '_id' => $this->id])
@@ -192,7 +192,7 @@ class Variant extends ActiveRecord
     public function getImagesAll()
     {
         $name = $this->tableName();
-        return $this->hasMany(Image::className(), ['id' => 'image_id'])
+        return $this->hasMany(Image::class, ['id' => 'image_id'])
             ->viaTable($name . '_image', [$name . '_id' => 'id'])
             ->leftJoin($name . '_image', 'id=image_id')
             ->where([$name . '_image.' . $name . '_id' => $this->id])
@@ -224,7 +224,7 @@ class Variant extends ActiveRecord
      */
     public function getImage()
     {
-        return $this->hasOne(Image::className(), ['id' => 'image_id']);
+        return $this->hasOne(Image::class, ['id' => 'image_id']);
     }
 
     public function getPriceDef()

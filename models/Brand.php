@@ -39,8 +39,8 @@ class Brand extends ActiveRecord
     public function behaviors()
     {
         return [
-            LanguageBehavior::className(),
-            SortableBehavior::className(),
+            LanguageBehavior::class,
+            SortableBehavior::class,
         ];
     }
 
@@ -55,7 +55,7 @@ class Brand extends ActiveRecord
             [['image_id', 'position'], 'integer'],
             [['enabled'], 'boolean'],
             [['enabled'], 'default', 'value' => true],
-            [['image_id'], 'exist', 'skipOnError' => true,'targetClass' => Image::className(),'targetAttribute' => ['image_id' => 'id']],
+            [['image_id'], 'exist', 'skipOnError' => true,'targetClass' => Image::class,'targetAttribute' => ['image_id' => 'id']],
         ];
     }
 
@@ -86,7 +86,7 @@ class Brand extends ActiveRecord
      */
     public function getImage()
     {
-        return $this->hasOne(Image::className(), ['id' => 'image_id']);
+        return $this->hasOne(Image::class, ['id' => 'image_id']);
     }
 
     /**
@@ -94,7 +94,7 @@ class Brand extends ActiveRecord
      */
     public function getProducts()
     {
-        return $this->hasMany(Product::className(), ['brand_id' => 'id']);
+        return $this->hasMany(Product::class, ['brand_id' => 'id']);
     }
 
     /**

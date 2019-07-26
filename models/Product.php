@@ -84,16 +84,16 @@ class Product extends ActiveRecord
     public function behaviors()
     {
         return [
-            LanguageBehavior::className(),
-            TimestampBehavior::className(),
-            SortableBehavior::className(),
+            LanguageBehavior::class,
+            TimestampBehavior::class,
+            SortableBehavior::class,
             'slug' => [
-                'class' => SluggableBehavior::className(),
+                'class' => SluggableBehavior::class,
                 'attribute' => 'name',
                 'ensureUnique' => true
             ],
             [
-                'class' => LinkerBehavior::className(),
+                'class' => LinkerBehavior::class,
                 'relations' => [
                     'category_ids' => ['categories'],
                     'option_ids' => ['options'],
@@ -139,7 +139,7 @@ class Product extends ActiveRecord
             [['enabled'], 'default', 'value' => true],
             [['category_ids', 'option_ids', 'complect_ids', 'status_ids', 'file_ids', 'fileEnabled'], 'each', 'rule' => ['integer']],
             [['fileName'], 'each', 'rule' => ['string']],
-            [['brand_id'], 'exist', 'skipOnError' => true, 'targetClass' => Brand::className(), 'targetAttribute' => ['brand_id' => 'id']],
+            [['brand_id'], 'exist', 'skipOnError' => true, 'targetClass' => Brand::class, 'targetAttribute' => ['brand_id' => 'id']],
         ];
     }
 
@@ -222,7 +222,7 @@ class Product extends ActiveRecord
      */
     public function getBrand()
     {
-        return $this->hasOne(Brand::className(), ['id' => 'brand_id']);
+        return $this->hasOne(Brand::class, ['id' => 'brand_id']);
     }
 
     /**
@@ -230,7 +230,7 @@ class Product extends ActiveRecord
      */
     public function getCategories()
     {
-        return $this->hasMany(Category::className(), ['id' => 'category_id'])->viaTable('product_category', ['product_id' => 'id']);
+        return $this->hasMany(Category::class, ['id' => 'category_id'])->viaTable('product_category', ['product_id' => 'id']);
     }
 
     /**
@@ -238,7 +238,7 @@ class Product extends ActiveRecord
      */
     public function getOptions()
     {
-        return $this->hasMany(Product::className(), ['id' => 'option_id'])->viaTable('product_option', ['product_id' => 'id']);
+        return $this->hasMany(Product::class, ['id' => 'option_id'])->viaTable('product_option', ['product_id' => 'id']);
     }
 
     /**
@@ -247,7 +247,7 @@ class Product extends ActiveRecord
      */
     public function getVariants()
     {
-        return $this->hasMany(Variant::className(), ['product_id' => 'id'])->orderBy(['position' => SORT_ASC]);
+        return $this->hasMany(Variant::class, ['product_id' => 'id'])->orderBy(['position' => SORT_ASC]);
     }
 
     /**
@@ -255,7 +255,7 @@ class Product extends ActiveRecord
      */
     public function getComplects()
     {
-        return $this->hasMany(Complect::className(), ['id' => 'complect_id'])->viaTable('product_complect', ['product_id' => 'id']);
+        return $this->hasMany(Complect::class, ['id' => 'complect_id'])->viaTable('product_complect', ['product_id' => 'id']);
     }
 
     /**
@@ -263,7 +263,7 @@ class Product extends ActiveRecord
      */
     public function getStatuses()
     {
-        return $this->hasMany(Status::className(), ['id' => 'status_id'])->viaTable('product_status', ['product_id' => 'id']);
+        return $this->hasMany(Status::class, ['id' => 'status_id'])->viaTable('product_status', ['product_id' => 'id']);
     }
 
     /**
@@ -293,7 +293,7 @@ class Product extends ActiveRecord
     public function getFiles()
     {
         $name = $this->tableName();
-        return $this->hasMany(File::className(), ['id' => 'file_id'])
+        return $this->hasMany(File::class, ['id' => 'file_id'])
             ->viaTable($name . '_file', [$name . '_id' => 'id'])
             ->leftJoin($name . '_file', 'id=file_id')
             ->where([$name . '_file.' . $name . '_id' => $this->id])
@@ -308,7 +308,7 @@ class Product extends ActiveRecord
     public function getFilesAll()
     {
         $name = $this->tableName();
-        return $this->hasMany(File::className(), ['id' => 'file_id'])
+        return $this->hasMany(File::class, ['id' => 'file_id'])
             ->viaTable($name . '_file', [$name . '_id' => 'id'])
             ->leftJoin($name . '_file', 'id=file_id')
             ->where([$name . '_file.' . $name . '_id' => $this->id])

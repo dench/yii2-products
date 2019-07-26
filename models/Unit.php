@@ -34,8 +34,8 @@ class Unit extends ActiveRecord
     public function behaviors()
     {
         return [
-            LanguageBehavior::className(),
-            SortableBehavior::className(),
+            LanguageBehavior::class,
+            SortableBehavior::class,
         ];
     }
 

@@ -133,7 +133,7 @@ $this->registerJs($js);
                 <?= $form->field($model, 'description' . $suffix)->textarea() ?>
                 <?php
                 if (isset($model->text_short)) {
-                    echo $form->field($model, 'text_short' . $suffix)->widget(CKEditor::className(), [
+                    echo $form->field($model, 'text_short' . $suffix)->widget(CKEditor::class, [
                         'preset' => 'full',
                         'clientOptions' => [
                             'customConfig' => '/js/ckeditor.js',
@@ -144,7 +144,7 @@ $this->registerJs($js);
                     ]);
                 }
                 ?>
-                <?= $form->field($model, 'text' . $suffix)->widget(CKEditor::className(), [
+                <?= $form->field($model, 'text' . $suffix)->widget(CKEditor::class, [
                     'preset' => 'full',
                     'clientOptions' => [
                         'customConfig' => '/js/ckeditor.js',
@@ -154,7 +154,7 @@ $this->registerJs($js);
                 ]) ?>
                 <?php
                 if (isset($model->text_features)) {
-                    echo $form->field($model, 'text_features' . $suffix)->widget(CKEditor::className(), [
+                    echo $form->field($model, 'text_features' . $suffix)->widget(CKEditor::class, [
                         'preset' => 'full',
                         'clientOptions' => [
                             'customConfig' => '/js/ckeditor.js',
@@ -167,7 +167,7 @@ $this->registerJs($js);
                 ?>
                 <?php
                 if (isset($model->text_tips)) {
-                    echo $form->field($model, 'text_tips' . $suffix)->widget(CKEditor::className(), [
+                    echo $form->field($model, 'text_tips' . $suffix)->widget(CKEditor::class, [
                         'preset' => 'full',
                         'clientOptions' => [
                             'customConfig' => '/js/ckeditor.js',
@@ -180,7 +180,7 @@ $this->registerJs($js);
                 ?>
                 <?php
                 if (isset($model->text_process)) {
-                    echo $form->field($model, 'text_process' . $suffix)->widget(CKEditor::className(), [
+                    echo $form->field($model, 'text_process' . $suffix)->widget(CKEditor::class, [
                         'preset' => 'full',
                         'clientOptions' => [
                             'customConfig' => '/js/ckeditor.js',
@@ -193,7 +193,7 @@ $this->registerJs($js);
                 ?>
                 <?php
                 if (isset($model->text_use)) {
-                    echo $form->field($model, 'text_use' . $suffix)->widget(CKEditor::className(), [
+                    echo $form->field($model, 'text_use' . $suffix)->widget(CKEditor::class, [
                         'preset' => 'full',
                         'clientOptions' => [
                             'customConfig' => '/js/ckeditor.js',
@@ -206,7 +206,7 @@ $this->registerJs($js);
                 ?>
                 <?php
                 if (isset($model->text_storage)) {
-                    echo $form->field($model, 'text_storage' . $suffix)->widget(CKEditor::className(), [
+                    echo $form->field($model, 'text_storage' . $suffix)->widget(CKEditor::class, [
                         'preset' => 'full',
                         'clientOptions' => [
                             'customConfig' => '/js/ckeditor.js',
@@ -219,7 +219,7 @@ $this->registerJs($js);
                 ?>
                 <?php
                 if (isset($model->text_top)) {
-                    echo $form->field($model, 'text_top' . $suffix)->widget(CKEditor::className(), [
+                    echo $form->field($model, 'text_top' . $suffix)->widget(CKEditor::class, [
                         'preset' => 'full',
                         'clientOptions' => [
                             'customConfig' => '/js/ckeditor.js',
@@ -234,7 +234,7 @@ $this->registerJs($js);
         <?php endforeach; ?>
 
         <div class="tab-pane fade" id="main-tab">
-            <?= $form->field($model, 'category_ids')->widget(Select2::className(), [
+            <?= $form->field($model, 'category_ids')->widget(Select2::class, [
                 'data' => Category::getList(null),
                 'options' => [
                     'placeholder' => Yii::t('app', 'Select'),

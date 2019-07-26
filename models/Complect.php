@@ -35,10 +35,10 @@ class Complect extends ActiveRecord
     public function behaviors()
     {
         return [
-            LanguageBehavior::className(),
-            SortableBehavior::className(),
+            LanguageBehavior::class,
+            SortableBehavior::class,
             [
-                'class' => LinkerBehavior::className(),
+                'class' => LinkerBehavior::class,
                 'relations' => [
                     'product_ids' => ['products'],
                 ],
@@ -84,7 +84,7 @@ class Complect extends ActiveRecord
      */
     public function getProducts()
     {
-        return $this->hasMany(Product::className(), ['id' => 'product_id'])->viaTable('product_complect', ['complect_id' => 'id']);
+        return $this->hasMany(Product::class, ['id' => 'product_id'])->viaTable('product_complect', ['complect_id' => 'id']);
     }
 
     /**

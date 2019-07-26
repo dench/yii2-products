@@ -63,16 +63,16 @@ class Category extends ActiveRecord
     public function behaviors()
     {
         return [
-            LanguageBehavior::className(),
-            TimestampBehavior::className(),
-            SortableBehavior::className(),
+            LanguageBehavior::class,
+            TimestampBehavior::class,
+            SortableBehavior::class,
             'slug' => [
-                'class' => SluggableBehavior::className(),
+                'class' => SluggableBehavior::class,
                 'attribute' => 'name',
                 'ensureUnique' => true
             ],
             [
-                'class' => LinkerBehavior::className(),
+                'class' => LinkerBehavior::class,
                 'relations' => [
                     'feature_ids' => ['features'],
                     'product_ids' => ['products'],
@@ -111,8 +111,8 @@ class Category extends ActiveRecord
             [['enabled', 'main'], 'boolean'],
             [['enabled'], 'default', 'value' => true],
             [['feature_ids', 'product_ids', 'image_ids', 'imageEnabled'], 'each', 'rule' => ['integer']],
-            [['image_id'], 'exist', 'skipOnError' => true, 'targetClass' => Image::className(), 'targetAttribute' => ['image_id' => 'id']],
-            [['parent_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['parent_id' => 'id']],
+            [['image_id'], 'exist', 'skipOnError' => true, 'targetClass' => Image::class, 'targetAttribute' => ['image_id' => 'id']],
+            [['parent_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::class, 'targetAttribute' => ['parent_id' => 'id']],
         ];
     }
 
@@ -181,7 +181,7 @@ class Category extends ActiveRecord
      */
     public function getParent()
     {
-        return $this->hasOne(Category::className(), ['id' => 'parent_id']);
+        return $this->hasOne(Category::class, ['id' => 'parent_id']);
     }
 
     /**
@@ -189,7 +189,7 @@ class Category extends ActiveRecord
      */
     public function getCategories()
     {
-        return $this->hasMany(Category::className(), ['parent_id' => 'id']);
+        return $this->hasMany(Category::class, ['parent_id' => 'id']);
     }
 
     /**
@@ -197,7 +197,7 @@ class Category extends ActiveRecord
      */
     public function getFeatures()
     {
-        return $this->hasMany(Feature::className(), ['id' => 'feature_id'])->viaTable('feature_category', ['category_id' => 'id']);
+        return $this->hasMany(Feature::class, ['id' => 'feature_id'])->viaTable('feature_category', ['category_id' => 'id']);
     }
 
     /**
@@ -205,7 +205,7 @@ class Category extends ActiveRecord
      */
     public function getProducts()
     {
-        return $this->hasMany(Product::className(), ['id' => 'product_id'])->viaTable('product_category', ['category_id' => 'id']);
+        return $this->hasMany(Product::class, ['id' => 'product_id'])->viaTable('product_category', ['category_id' => 'id']);
     }
 
     /**
@@ -214,7 +214,7 @@ class Category extends ActiveRecord
     public function getImages()
     {
         $name = $this->tableName();
-        return $this->hasMany(Image::className(), ['id' => 'image_id'])
+        return $this->hasMany(Image::class, ['id' => 'image_id'])
             ->viaTable($name . '_image', [$name . '_id' => 'id'])
             ->leftJoin($name . '_image', 'id=image_id')
             ->where([$name . '_image.' . $name . '_id' => $this->id])
@@ -229,7 +229,7 @@ class Category extends ActiveRecord
     public function getImagesAll()
     {
         $name = $this->tableName();
-        return $this->hasMany(Image::className(), ['id' => 'image_id'])
+        return $this->hasMany(Image::class, ['id' => 'image_id'])
             ->viaTable($name . '_image', [$name . '_id' => 'id'])
             ->leftJoin($name . '_image', 'id=image_id')
             ->where([$name . '_image.' . $name . '_id' => $this->id])
@@ -261,7 +261,7 @@ class Category extends ActiveRecord
      */
     public function getImage()
     {
-        return $this->hasOne(Image::className(), ['id' => 'image_id']);
+        return $this->hasOne(Image::class, ['id' => 'image_id']);
     }
 
     /**
@@ -278,7 +278,7 @@ class Category extends ActiveRecord
      */
     public static function getMain()
     {
-        return Category::find()->where(['enabled' => true, 'main' => true])->all();
+        return Category::find()->where(['enabled' => true, 'main' => true])->orderBy(['position' => SORT_ASC])->all();
     }
 
     /**

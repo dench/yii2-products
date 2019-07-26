@@ -64,7 +64,7 @@ use yii\widgets\Pjax;
                 },
                 'columns' => [
                     [
-                        'class' => SortableColumn::className(),
+                        'class' => SortableColumn::class,
                     ],
                     'name',
                     'feature.after',
