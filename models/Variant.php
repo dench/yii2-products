@@ -96,7 +96,8 @@ class Variant extends ActiveRecord
     {
         return [
             [['currency_id', 'unit_id'], 'required'],
-            [['product_id', 'price', 'price_old', 'currency_id', 'unit_id', 'available', 'position', 'image_id'], 'integer'],
+            [['product_id', 'currency_id', 'unit_id', 'available', 'position', 'image_id'], 'integer'],
+            [['price', 'price_old'], 'number'],
             [['code', 'name'], 'string', 'max' => 255],
             [['enabled'], 'boolean'],
             [['enabled'], 'default', 'value' => true],
