@@ -1,5 +1,6 @@
 <?php
 
+use dench\products\models\Currency;
 use dench\sortable\grid\SortableColumn;
 use yii\helpers\Html;
 use yii\grid\GridView;
@@ -64,8 +65,16 @@ if (!Yii::$app->request->get('all') && $dataProvider->totalCount > $dataProvider
                 'value' => 'brand.name',
                 'filter' => Brand::getList(null),
             ],
-            'price',
-            'priceDef',
+            [
+                'attribute' => 'price',
+            ],
+            [
+                'attribute' => 'priceDef',
+                'label' => function(){
+                    $currencyDef = Currency::findOne(Yii::$app->params['currency_id']);
+                    return $currencyDef->before . $currencyDef->after;
+                },
+            ],
             [
                 'attribute' => 'status_id',
                 'value' => function ($model, $key, $index, $column) {
