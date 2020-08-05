@@ -21,6 +21,8 @@ if (!Yii::$app->request->get('all') && $dataProvider->totalCount > $dataProvider
 } else {
     $showAll = '';
 }
+
+$currencyDef = Currency::findOne(Yii::$app->params['currency_id']);
 ?>
 <div class="product-index">
 
@@ -67,13 +69,13 @@ if (!Yii::$app->request->get('all') && $dataProvider->totalCount > $dataProvider
             ],
             [
                 'attribute' => 'price',
+                'value' => function($model){
+                    return $model->currency->before . $model->price . $model->currency->after;
+                },
             ],
             [
                 'attribute' => 'priceDef',
-                'label' => function(){
-                    $currencyDef = Currency::findOne(Yii::$app->params['currency_id']);
-                    return $currencyDef->before . $currencyDef->after;
-                },
+                'label' => Yii::t('app', 'Price') . ', ' . $currencyDef->before . $currencyDef->after,
             ],
             [
                 'attribute' => 'status_id',
