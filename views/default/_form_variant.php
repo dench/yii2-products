@@ -36,7 +36,7 @@ if (!$modelVariant->isNewRecord) {
         <?= $form->field($modelVariant, '['. $index . ']code')->textInput(['maxlength' => true]) ?>
     </div>
     <div class="col-xs-6 col-sm-4 col-md-2">
-        <?= $form->field($modelVariant, '['. $index . ']available')->textInput() ?>
+        <?= $form->field($modelVariant, '['. $index . ']available')->textInput()->label($modelVariant->getAttributeLabel('available') . ' <i class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="(1) в наличии, (0) нет в наличии, (-1) под заказ"></i>') ?>
     </div>
     <div class="col-xs-6 col-sm-4 col-md-2">
         <?= $form->field($modelVariant, '['. $index . ']unit_id')->dropDownList(Unit::getList(true)) ?>
