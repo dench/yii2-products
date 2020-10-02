@@ -59,7 +59,7 @@ class ProductFilter extends Product
             'query' => $query,
             'sort'=> [
                 'defaultOrder' => [
-                    'position'=>SORT_ASC,
+                    'position' => SORT_DESC,
                 ],
             ],
         ]);
