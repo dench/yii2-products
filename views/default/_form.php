@@ -378,6 +378,8 @@ $this->registerJs($js);
                                     <td><?= $feature->name . ($feature->after ? ', ' . $feature->after : '') ?></td>
                                     <?php foreach ($modelsVariant as $index => $modelVariant) : ?>
                                         <td>
+                                            <?php Yii::error($modelVariant->value_ids); ?>
+                                            <?= $index ?>
                                             <?= Select2::widget([
                                                 'name' => 'Variant[' . $index . '][value_ids][]',
                                                 'data' => Value::getList($feature->id),

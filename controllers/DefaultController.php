@@ -347,6 +347,7 @@ class DefaultController extends Controller
                             foreach ($files as $key => $file) {
                                 if (!($flag = $file->save(false))) {
                                     $transaction->rollBack();
+                                    Yii::error('files rollBack');
                                     break;
                                 }
                             }
@@ -372,15 +373,18 @@ class DefaultController extends Controller
                                 }
                                 if (!($flag = $modelVariant->save(false))) {
                                     $transaction->rollBack();
+                                    Yii::error('modelVariant rollBack');
                                     break;
                                 }
                             }
                             foreach ($images as $key => $image) {
                                 if (!($flag = $image->save(false))) {
                                     $transaction->rollBack();
+                                    Yii::error('image rollBack');
                                     break;
                                 }
                             }
+                            Yii::error('end model save');
                         }
                         if ($flag) {
                             Yii::error('success');
