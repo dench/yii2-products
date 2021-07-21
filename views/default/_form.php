@@ -378,12 +378,19 @@ $this->registerJs($js);
                                     <td><?= $feature->name . ($feature->after ? ', ' . $feature->after : '') ?></td>
                                     <?php foreach ($modelsVariant as $index => $modelVariant) : ?>
                                         <td>
-                                            <?php Yii::error($modelVariant->value_ids); ?>
-                                            <?= $index ?>
+                                            <?php
+                                            $value_ids = [];
+                                            $list = Value::getList($feature->id);
+                                            foreach ($modelVariant->value_ids as $value_id) {
+                                                if (isset($list[$value_id])) {
+                                                    $value_ids[] = $value_id;
+                                                }
+                                            }
+                                            ?>
                                             <?= Select2::widget([
                                                 'name' => 'Variant[' . $index . '][value_ids][]',
-                                                'data' => Value::getList($feature->id),
-                                                'value' => $modelVariant->value_ids,
+                                                'data' => $list,
+                                                'value' => $value_ids,
                                                 'size' => Select2::SMALL,
                                                 'options' => ['placeholder' => Yii::t('app', 'Select'), 'multiple' => true],
                                                 'pluginOptions' => [

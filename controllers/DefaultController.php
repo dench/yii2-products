@@ -285,8 +285,6 @@ class DefaultController extends Controller
                         ActiveForm::validateMultiple($modelsVariant),
                         ActiveForm::validate($model)
                     );
-
-                    Yii::error($return);
                     return $return;
                 }
 
@@ -329,13 +327,10 @@ class DefaultController extends Controller
                 $valid = Model::validateMultiple($images) && $valid;
                 $valid = Model::validateMultiple($files) && $valid;
 
-                Yii::error($valid);
-
                 if ($valid) {
                     $transaction = \Yii::$app->db->beginTransaction();
                     try {
                         if ($flag = $model->save(false)) {
-                            Yii::error('flag save');
                             if (!empty($deletedIDs)) {
                                 Variant::deleteAll(['id' => $deletedIDs]);
                             }
@@ -347,7 +342,6 @@ class DefaultController extends Controller
                             foreach ($files as $key => $file) {
                                 if (!($flag = $file->save(false))) {
                                     $transaction->rollBack();
-                                    Yii::error('files rollBack');
                                     break;
                                 }
                             }
@@ -373,21 +367,17 @@ class DefaultController extends Controller
                                 }
                                 if (!($flag = $modelVariant->save(false))) {
                                     $transaction->rollBack();
-                                    Yii::error('modelVariant rollBack');
                                     break;
                                 }
                             }
                             foreach ($images as $key => $image) {
                                 if (!($flag = $image->save(false))) {
                                     $transaction->rollBack();
-                                    Yii::error('image rollBack');
                                     break;
                                 }
                             }
-                            Yii::error('end model save');
                         }
                         if ($flag) {
-                            Yii::error('success');
                             $transaction->commit();
                             Yii::$app->session->setFlash('success',
                                 Yii::t('app', 'Information has been saved successfully'));
@@ -396,10 +386,8 @@ class DefaultController extends Controller
                             }
                             return $this->redirect(['index']);
                         }
-                        Yii::error('no success');
                     } catch (Exception $e) {
                         $transaction->rollBack();
-                        Yii::error('Exception');
                     }
                 }
             } else {
