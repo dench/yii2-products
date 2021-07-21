@@ -169,11 +169,7 @@ class Variant extends ActiveRecord
      */
     public function getValues()
     {
-        $return = $this->hasMany(Value::class, ['id' => 'value_id'])->viaTable('variant_value', ['variant_id' => 'id'])->orderBy(['position' => SORT_ASC]);
-        foreach ($return->all() as $item) {
-            Yii::error($item->id . ' - ' . $item->name);
-        }
-        return $return;
+        return $this->hasMany(Value::class, ['id' => 'value_id'])->viaTable('variant_value', ['variant_id' => 'id'])->orderBy(['position' => SORT_ASC]);
     }
 
     /**
