@@ -100,7 +100,7 @@ class Variant extends ActiveRecord
             [['price', 'price_old'], 'number'],
             [['code', 'name'], 'string', 'max' => 255],
             [['enabled'], 'boolean'],
-            [['enabled'], 'default', 'value' => true],
+            [['enabled', 'available'], 'default', 'value' => true],
             [['value_ids', 'image_ids', 'imageEnabled'], 'each', 'rule' => ['integer']],
             [['currency_id'], 'exist', 'skipOnError' => true, 'targetClass' => Currency::class, 'targetAttribute' => ['currency_id' => 'id']],
             [['product_id'], 'exist', 'skipOnError' => true, 'targetClass' => Product::class, 'targetAttribute' => ['product_id' => 'id']],
