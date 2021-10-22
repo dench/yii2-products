@@ -289,10 +289,19 @@ class Category extends ActiveRecord
         return Yii::$app->cache->getOrSet('podmenu-' . Yii::$app->language, function () {
             $items = [];
             foreach (self::getMain() as $item) {
+                $children = [];
+                foreach ($item->categories as $category) {
+                    $children[] = [
+                        'id' => $category->id,
+                        'name' => $category->name,
+                        'slug' => $category->slug,
+                    ];
+                }
                 $items[$item->id] = [
                     'id' => $item->id,
                     'slug' => $item->slug,
                     'name' => $item->name,
+                    'items' => $children,
                 ];
             }
             return $items;
